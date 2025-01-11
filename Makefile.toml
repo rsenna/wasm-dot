@@ -1,0 +1,53 @@
+[tasks.default]
+description = "Override cargo-make default 'no task' behaviour, so it only runs the 'build' task, instead of all tasks."
+alias = "build"
+
+[tasks.build]
+# skip building the crate, wasm-pack does that already
+clear = true
+description = "Build wasm-dot for the web."
+dependencies = ["wasm-pack", "npm-install-site"]
+
+[tasks.build-crate]
+description = "Build the Rust crate only."
+command = "cargo"
+args = ["build", "--all-features"]
+
+[tasks.wasm-pack]
+description = "Build the WASM artifacts."
+command = "wasm-pack"
+args = ["build"]
+
+[tasks.npm-install-site]
+description = "Install dependencies for the client web site."
+script = """
+trap 'popd &> /dev/null' EXIT
+pushd www >& /dev/null
+npm install
+"""
+
+[tasks.clean]
+description = "Clean all build artifacts."
+command = "cargo"
+args = ["clean"]
+dependencies = ["clean-site"]
+
+[tasks.clean-site]
+description = "Clean the client web site."
+script = "\\rm -rf 'pkg'"
+
+[tasks.format]
+description = "Format the Rust source code, using `rustfmt`."
+install_crate = "rustfmt"
+command = "cargo"
+args = ["fmt", "--", "--emit=files"]
+
+[tasks.serve]
+description = "Start the client web site in local development mode."
+dependencies = ["build"]
+script = """
+#!/usr/bin/env bash
+trap 'popd &> /dev/null' EXIT
+pushd www >& /dev/null
+npm run start
+"""
