@@ -2,30 +2,31 @@
 
 Demo application of a simple wasm app in Rust.
 
+> ℹ️ This is a **fork** of an original, currently unmaintained work
+>
+> Repo:  [wasm-dot](https://github.com/deciduously/wasm-dot)</br>
+> Author: [Ben Lovy](https://github.com/deciduously).
+>
+> It's a simple demo of a resizable circle drawn on a HTML5 canvas, using Rust and WebAssembly, with a slider to control its size.
+> 
+> You can read the original author's post [here](post.md) or [online](https://dev.to/deciduously/reactive-canvas-with-rust-webassembly-and-web-sys-2hg2).
+>
+> Improvements:
+> - Upgraded web dependencies
+> - Now using [Cargo Make](https://sagiegurari.github.io/cargo-make/#usage-env) for convenience
+
 ## Usage
 
-```
-$ git clone git@github.com:deciduously/wasm-dot.git
+```bash
+# Install cargo-make, if you don't already have it
+$ cargo install --force cargo-make
+
+# Clone the repo
+$ git clone git@github.com:rsenna/wasm-dot.git
+
+# Build and run the web app
 $ cd wasm-dot
-../wasm-dot $ wasm-pack build
-[INFO]: Checking for the Wasm target...
-...blah blah blah
-[INFO]: :-) Your wasm pkg is ready to publish at /home/ben/code/wasm-dot/pkg.
-../wasm-dot $ cd www
-../wasm-dot/www $ npm install
-... blah blah blah
-../wasm-dot/www $ npm run start
-> create-wasm-app@0.1.0 start /home/ben/code/wasm-dot/www
-> webpack-dev-server
-
-ℹ ｢wds｣: Project is running at http://localhost:8080/
-ℹ ｢wds｣: webpack output is served from /
-ℹ ｢wds｣: Content not from webpack is served from /home/ben/code/wasm-dot/www
-ℹ ｢wdm｣: Hash: f1490ee1682760eb8f0e
-Version: webpack 4.33.0
-Time: 345ms
-Built at: 05/14/2020 4:47:08 PM
-...blah blah blah
+$ cargo make serve
 ```
 
-Open your web browser to `localhost:8080` and play with your brand new dot.
+Now open your web browser to <http://localhost:8080>, and play with your brand new dot!
